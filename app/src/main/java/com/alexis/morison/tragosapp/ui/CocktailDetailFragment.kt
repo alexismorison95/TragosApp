@@ -1,28 +1,28 @@
 package com.alexis.morison.tragosapp.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.alexis.morison.tragosapp.R
+import com.alexis.morison.tragosapp.data.model.Drink
 
-
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
+private const val DRINK_PARAM = "drink"
 
 class CocktailDetailFragment : Fragment(R.layout.fragment_cocktail_detail) {
 
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var drink: Drink
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+
+        requireArguments().let {
+            drink = it.getParcelable(DRINK_PARAM)!!
         }
+
+        Log.d("TAG", "onCreate: ${drink.toString()}")
     }
 
 

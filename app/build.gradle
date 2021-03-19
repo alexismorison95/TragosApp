@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -52,9 +53,20 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:2.3.4"
     implementation "androidx.navigation:navigation-ui-ktx:2.3.4"
 
-    // lifecycle
+    // Lifecycle
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0"
+
+    // ViewModel and LiveData
+    //implementation "androidx.lifecycle:lifecycle-extensions:2.3.0"
+
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0"
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.0"
+
+    // Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
 
     testImplementation 'junit:junit:4.13.2'
