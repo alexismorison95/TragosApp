@@ -5,5 +5,5 @@ import com.alexis.morison.tragosapp.vo.Resource
 
 interface Repo {
 
-    fun getDrinkList(): Resource<List<Drink>>
+    suspend fun getDrinkList(cocktailName: String): Resource<List<Drink>>
 }

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
@@ -36,12 +37,20 @@ class MainFragment : Fragment(R.layout.fragment_main), MainAdapter.OnDrinkClickL
 
         setRecyclerView()
 
+        setSearchView()
+
+        setObservers()
+    }
+
+    private fun setObservers() {
+
         viewModel.fetchDrinkList.observe(viewLifecycleOwner, Observer { result ->
 
             when (result) {
 
                 is Resource.Loading -> {
 
+                    binding.rvTragos.adapter = null
                     binding.progressBar.visibility = View.VISIBLE
                 }
 
@@ -60,6 +69,21 @@ class MainFragment : Fragment(R.layout.fragment_main), MainAdapter.OnDrinkClickL
         })
     }
 
+    private fun setSearchView() {
+
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+            override fun onQueryTextSubmit(query: String?): Boolean {
+
+                viewModel.setCocktail(query!!)
+
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean = false
+        })
+    }
+
     private fun setRecyclerView() {
 
         binding.rvTragos.layoutManager = LinearLayoutManager(requireContext())
@@ -70,7 +94,7 @@ class MainFragment : Fragment(R.layout.fragment_main), MainAdapter.OnDrinkClickL
     override fun onDrinkClick(drink: Drink) {
 
         val bundle = Bundle()
-        bundle.putParcelable("drink", drink)
+        bundle.putParcelable(CocktailDetailFragment.DRINK_PARAM, drink)
 
         findNavController().navigate(R.id.action_mainFragment_to_cocktailDetailFragment, bundle)
     }

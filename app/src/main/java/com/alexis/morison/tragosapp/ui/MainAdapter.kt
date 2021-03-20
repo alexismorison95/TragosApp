@@ -2,6 +2,7 @@ package com.alexis.morison.tragosapp.ui
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alexis.morison.tragosapp.base.BaseViewHolder
@@ -52,11 +53,11 @@ class MainAdapter(
                 .into(imgDrink, object : Callback {
 
                     override fun onSuccess() {
-                        //view.main_card_progress.visibility = View.GONE
+                        progressBar.visibility = View.GONE
                     }
 
                     override fun onError(e: Exception?) {
-                        //view.main_card_progress.visibility = View.GONE
+                        progressBar.visibility = View.GONE
                     }
                 })
 
