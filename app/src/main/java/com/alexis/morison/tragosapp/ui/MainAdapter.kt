@@ -19,7 +19,7 @@ class MainAdapter(
 
     interface OnDrinkClickListener {
 
-        fun onDrinkClick(drink: Drink)
+        fun onDrinkClick(drink: Drink, position: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
@@ -66,7 +66,7 @@ class MainAdapter(
 
             binding.root.setOnClickListener {
 
-                itemClickListener.onDrinkClick(item)
+                itemClickListener.onDrinkClick(item, position)
             }
         }
     }

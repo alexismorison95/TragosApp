@@ -2,22 +2,17 @@ package com.alexis.morison.tragosapp.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexis.morison.tragosapp.AppDatabase
 import com.alexis.morison.tragosapp.R
-import com.alexis.morison.tragosapp.data.DataSource
+import com.alexis.morison.tragosapp.data.DataSourceImplement
 import com.alexis.morison.tragosapp.data.model.Drink
 import com.alexis.morison.tragosapp.databinding.FragmentMainBinding
 import com.alexis.morison.tragosapp.domain.RepoImplement
@@ -32,7 +27,7 @@ class MainFragment : Fragment(R.layout.fragment_main), MainAdapter.OnDrinkClickL
     private val viewModel by activityViewModels<MainViewModel> {
         ViewModelFactory(
             RepoImplement(
-                DataSource(AppDatabase.getDatabase(requireActivity().applicationContext))
+                DataSourceImplement(AppDatabase.getDatabase(requireActivity().applicationContext))
             )
         )
     }
@@ -100,11 +95,10 @@ class MainFragment : Fragment(R.layout.fragment_main), MainAdapter.OnDrinkClickL
     private fun setRecyclerView() {
 
         binding.rvTragos.layoutManager = LinearLayoutManager(requireContext())
-
         binding.rvTragos.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
     }
 
-    override fun onDrinkClick(drink: Drink) {
+    override fun onDrinkClick(drink: Drink, position: Int) {
 
         val bundle = Bundle()
         bundle.putParcelable(CocktailDetailFragment.DRINK_PARAM, drink)

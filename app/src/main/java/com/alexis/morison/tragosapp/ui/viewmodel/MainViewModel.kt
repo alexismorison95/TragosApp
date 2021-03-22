@@ -55,4 +55,26 @@ class MainViewModel(private val repo: RepoImplement) : ViewModel() {
             emit(Resource.Failure(e))
         }
     }
+
+    fun deleteCocktail(drink: Drink) {
+
+        viewModelScope.launch {
+
+            val drinkEntity = DrinkEntity(
+                drink.id,
+                drink.name,
+                drink.image,
+                drink.description,
+                drink.hasAlcohol,
+                drink.ingredient1,
+                drink.ingredient2,
+                drink.ingredient3,
+                drink.ingredient4,
+                drink.ingredient5,
+                drink.ingredient6,
+            )
+
+            repo.deleteDrink(drinkEntity)
+        }
+    }
 }

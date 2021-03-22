@@ -1,27 +1,27 @@
 package com.alexis.morison.tragosapp.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexis.morison.tragosapp.AppDatabase
 import com.alexis.morison.tragosapp.R
-import com.alexis.morison.tragosapp.data.DataSource
+import com.alexis.morison.tragosapp.data.DataSourceImplement
+import com.alexis.morison.tragosapp.data.model.Drink
 import com.alexis.morison.tragosapp.databinding.FragmentFavouritesBinding
 import com.alexis.morison.tragosapp.domain.RepoImplement
 import com.alexis.morison.tragosapp.ui.viewmodel.MainViewModel
 import com.alexis.morison.tragosapp.ui.viewmodel.ViewModelFactory
 import com.alexis.morison.tragosapp.vo.Resource
 
-class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
+class FavouritesFragment : Fragment(R.layout.fragment_favourites), MainAdapter.OnDrinkClickListener {
 
     private val viewModel by activityViewModels<MainViewModel> {
         ViewModelFactory(
             RepoImplement(
-                DataSource(AppDatabase.getDatabase(requireActivity().applicationContext))
+                DataSourceImplement(AppDatabase.getDatabase(requireActivity().applicationContext))
             )
         )
     }
@@ -33,6 +33,13 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
 
         binding = FragmentFavouritesBinding.bind(view)
 
+        setRecyclerView()
+
+        setObservers()
+    }
+
+    private fun setObservers() {
+
         viewModel.getFavouritesCocktails().observe(viewLifecycleOwner, { result ->
 
             when (result) {
@@ -41,7 +48,25 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
                 }
 
                 is Resource.Success -> {
-                    Log.d("favourites_tag", "${result.data}")
+
+                    val favouritesList = result.data.map {
+
+                        Drink(
+                            it.drinkId,
+                            it.name,
+                            it.image,
+                            it.description,
+                            it.hasAlcohol,
+                            it.ingredient1,
+                            it.ingredient2,
+                            it.ingredient3,
+                            it.ingredient4,
+                            it.ingredient5,
+                            it.ingredient6,
+                        )
+                    }
+
+                    binding.rvFavouritesDrinks.adapter = MainAdapter(requireContext(), favouritesList, this)
                 }
 
                 is Resource.Failure -> {
@@ -49,5 +74,18 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
                 }
             }
         })
+    }
+
+    private fun setRecyclerView() {
+
+        binding.rvFavouritesDrinks.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvFavouritesDrinks.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
+    }
+
+    override fun onDrinkClick(drink: Drink, position: Int) {
+
+        viewModel.deleteCocktail(drink)
+
+        binding.rvFavouritesDrinks.adapter?.notifyItemRemoved(position)
     }
 }

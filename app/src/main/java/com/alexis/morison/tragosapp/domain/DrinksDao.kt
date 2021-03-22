@@ -1,9 +1,7 @@
 package com.alexis.morison.tragosapp.domain
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
+import com.alexis.morison.tragosapp.data.model.Drink
 import com.alexis.morison.tragosapp.data.model.DrinkEntity
 
 @Dao
@@ -14,4 +12,7 @@ interface DrinksDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFavourite(drink: DrinkEntity)
+
+    @Delete
+    suspend fun deleteDrink(drink: DrinkEntity)
 }

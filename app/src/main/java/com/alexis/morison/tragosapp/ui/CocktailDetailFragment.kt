@@ -1,16 +1,13 @@
 package com.alexis.morison.tragosapp.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.alexis.morison.tragosapp.AppDatabase
 import com.alexis.morison.tragosapp.R
-import com.alexis.morison.tragosapp.data.DataSource
+import com.alexis.morison.tragosapp.data.DataSourceImplement
 import com.alexis.morison.tragosapp.data.model.Drink
 import com.alexis.morison.tragosapp.data.model.DrinkEntity
 import com.alexis.morison.tragosapp.databinding.FragmentCocktailDetailBinding
@@ -25,7 +22,7 @@ class CocktailDetailFragment : Fragment(R.layout.fragment_cocktail_detail) {
     private val viewModel by activityViewModels<MainViewModel> {
         ViewModelFactory(
             RepoImplement(
-                DataSource(AppDatabase.getDatabase(requireActivity().applicationContext))
+                DataSourceImplement(AppDatabase.getDatabase(requireActivity().applicationContext))
             )
         )
     }
