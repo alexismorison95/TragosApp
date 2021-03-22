@@ -1,9 +1,7 @@
-package com.alexis.morison.tragosapp.ui.viewmodel
+package com.alexis.morison.tragosapp.presentation
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.alexis.morison.tragosapp.domain.Repo
 import com.alexis.morison.tragosapp.domain.RepoImplement
 
 class ViewModelFactory(private val repo: RepoImplement) : ViewModelProvider.Factory {

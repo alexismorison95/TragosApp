@@ -1,4 +1,4 @@
-package com.alexis.morison.tragosapp.ui
+package com.alexis.morison.tragosapp.ui.favourites
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,17 +6,19 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.alexis.morison.tragosapp.AppDatabase
+import com.alexis.morison.tragosapp.data.local.AppDatabase
 import com.alexis.morison.tragosapp.R
 import com.alexis.morison.tragosapp.data.DataSourceImplement
-import com.alexis.morison.tragosapp.data.model.Drink
+import com.alexis.morison.tragosapp.data.model.Cocktail
 import com.alexis.morison.tragosapp.databinding.FragmentFavouritesBinding
 import com.alexis.morison.tragosapp.domain.RepoImplement
-import com.alexis.morison.tragosapp.ui.viewmodel.MainViewModel
-import com.alexis.morison.tragosapp.ui.viewmodel.ViewModelFactory
-import com.alexis.morison.tragosapp.vo.Resource
+import com.alexis.morison.tragosapp.ui.MainAdapter
+import com.alexis.morison.tragosapp.presentation.MainViewModel
+import com.alexis.morison.tragosapp.presentation.ViewModelFactory
+import com.alexis.morison.tragosapp.base.Resource
 
-class FavouritesFragment : Fragment(R.layout.fragment_favourites), MainAdapter.OnDrinkClickListener {
+class FavouritesFragment : Fragment(R.layout.fragment_favourites),
+    MainAdapter.OnDrinkClickListener {
 
     private val viewModel by activityViewModels<MainViewModel> {
         ViewModelFactory(
@@ -51,7 +53,7 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites), MainAdapter.O
 
                     val favouritesList = result.data.map {
 
-                        Drink(
+                        Cocktail(
                             it.drinkId,
                             it.name,
                             it.image,
@@ -82,9 +84,9 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites), MainAdapter.O
         binding.rvFavouritesDrinks.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
     }
 
-    override fun onDrinkClick(drink: Drink, position: Int) {
+    override fun onDrinkClick(cocktail: Cocktail, position: Int) {
 
-        viewModel.deleteCocktail(drink)
+        viewModel.deleteCocktail(cocktail)
 
         binding.rvFavouritesDrinks.adapter?.notifyItemRemoved(position)
     }

@@ -1,19 +1,19 @@
-package com.alexis.morison.tragosapp.ui
+package com.alexis.morison.tragosapp.ui.cocktaildetail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import com.alexis.morison.tragosapp.AppDatabase
+import com.alexis.morison.tragosapp.data.local.AppDatabase
 import com.alexis.morison.tragosapp.R
 import com.alexis.morison.tragosapp.data.DataSourceImplement
-import com.alexis.morison.tragosapp.data.model.Drink
+import com.alexis.morison.tragosapp.data.model.Cocktail
 import com.alexis.morison.tragosapp.data.model.DrinkEntity
 import com.alexis.morison.tragosapp.databinding.FragmentCocktailDetailBinding
 import com.alexis.morison.tragosapp.domain.RepoImplement
-import com.alexis.morison.tragosapp.ui.viewmodel.MainViewModel
-import com.alexis.morison.tragosapp.ui.viewmodel.ViewModelFactory
+import com.alexis.morison.tragosapp.presentation.MainViewModel
+import com.alexis.morison.tragosapp.presentation.ViewModelFactory
 import com.google.android.material.chip.Chip
 import com.squareup.picasso.Picasso
 
@@ -27,7 +27,7 @@ class CocktailDetailFragment : Fragment(R.layout.fragment_cocktail_detail) {
         )
     }
 
-    private lateinit var cocktail: Drink
+    private lateinit var cocktail: Cocktail
 
     private lateinit var binding: FragmentCocktailDetailBinding
 

@@ -1,10 +1,10 @@
-package com.alexis.morison.tragosapp.ui.viewmodel
+package com.alexis.morison.tragosapp.presentation
 
 import androidx.lifecycle.*
-import com.alexis.morison.tragosapp.data.model.Drink
+import com.alexis.morison.tragosapp.data.model.Cocktail
 import com.alexis.morison.tragosapp.data.model.DrinkEntity
 import com.alexis.morison.tragosapp.domain.RepoImplement
-import com.alexis.morison.tragosapp.vo.Resource
+import com.alexis.morison.tragosapp.base.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -23,7 +23,7 @@ class MainViewModel(private val repo: RepoImplement) : ViewModel() {
 
     val fetchDrinkList = cocktailData.distinctUntilChanged().switchMap { nameString ->
 
-        liveData<Resource<List<Drink>>>(Dispatchers.IO) {
+        liveData<Resource<List<Cocktail>>>(Dispatchers.IO) {
 
             emit(Resource.Loading())
 
@@ -56,22 +56,22 @@ class MainViewModel(private val repo: RepoImplement) : ViewModel() {
         }
     }
 
-    fun deleteCocktail(drink: Drink) {
+    fun deleteCocktail(cocktail: Cocktail) {
 
         viewModelScope.launch {
 
             val drinkEntity = DrinkEntity(
-                drink.id,
-                drink.name,
-                drink.image,
-                drink.description,
-                drink.hasAlcohol,
-                drink.ingredient1,
-                drink.ingredient2,
-                drink.ingredient3,
-                drink.ingredient4,
-                drink.ingredient5,
-                drink.ingredient6,
+                cocktail.id,
+                cocktail.name,
+                cocktail.image,
+                cocktail.description,
+                cocktail.hasAlcohol,
+                cocktail.ingredient1,
+                cocktail.ingredient2,
+                cocktail.ingredient3,
+                cocktail.ingredient4,
+                cocktail.ingredient5,
+                cocktail.ingredient6,
             )
 
             repo.deleteDrink(drinkEntity)

@@ -1,6 +1,6 @@
 package com.alexis.morison.tragosapp.vo
 
-import com.alexis.morison.tragosapp.domain.WebService
+import com.alexis.morison.tragosapp.data.remote.WebService
 import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

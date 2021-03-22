@@ -1,17 +1,17 @@
 package com.alexis.morison.tragosapp.data
 
-import com.alexis.morison.tragosapp.AppDatabase
-import com.alexis.morison.tragosapp.data.model.Drink
+import com.alexis.morison.tragosapp.data.local.AppDatabase
+import com.alexis.morison.tragosapp.data.model.Cocktail
 import com.alexis.morison.tragosapp.data.model.DrinkEntity
 import com.alexis.morison.tragosapp.domain.DataSource
-import com.alexis.morison.tragosapp.vo.Resource
+import com.alexis.morison.tragosapp.base.Resource
 import com.alexis.morison.tragosapp.vo.RetrofitClient
 
 class DataSourceImplement(private val appDatabase: AppDatabase) : DataSource {
 
-    override suspend fun getCocktailByName(cocktailName: String): Resource<List<Drink>>  {
+    override suspend fun getCocktailByName(cocktailName: String): Resource<List<Cocktail>> {
 
-        return Resource.Success(RetrofitClient.webService.getCocktailByName(cocktailName).drinkList)
+        return Resource.Success(RetrofitClient.webService.getCocktailByName(cocktailName).cocktailList)
     }
 
     override suspend fun insertCocktailIntoRoom(cocktail: DrinkEntity) {

@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Drink(
+data class Cocktail(
     @SerializedName("idDrink")
     val id: String = "",
     @SerializedName("strDrink")
@@ -34,9 +34,9 @@ data class Drink(
 ) : Parcelable
 
 
-data class DrinkList(
+data class CocktailList(
     @SerializedName("drinks")
-    val drinkList: List<Drink>
+    val cocktailList: List<Cocktail>
 )
 
 @Entity

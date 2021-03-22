@@ -1,11 +1,10 @@
-package com.alexis.morison.tragosapp
+package com.alexis.morison.tragosapp.data.local
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.alexis.morison.tragosapp.data.model.DrinkEntity
-import com.alexis.morison.tragosapp.domain.DrinksDao
 
 @Database(entities = [DrinkEntity::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {

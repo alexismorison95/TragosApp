@@ -1,12 +1,12 @@
 package com.alexis.morison.tragosapp.domain
 
-import com.alexis.morison.tragosapp.data.model.Drink
+import com.alexis.morison.tragosapp.data.model.Cocktail
 import com.alexis.morison.tragosapp.data.model.DrinkEntity
-import com.alexis.morison.tragosapp.vo.Resource
+import com.alexis.morison.tragosapp.base.Resource
 
 class RepoImplement(private val dataSource: DataSource): Repo {
 
-    override suspend fun getDrinkList(cocktailName: String): Resource<List<Drink>> {
+    override suspend fun getDrinkList(cocktailName: String): Resource<List<Cocktail>> {
 
         return dataSource.getCocktailByName(cocktailName)
     }

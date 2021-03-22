@@ -1,4 +1,4 @@
-package com.alexis.morison.tragosapp.vo
+package com.alexis.morison.tragosapp.base
 
 sealed class Resource<out T> {
 

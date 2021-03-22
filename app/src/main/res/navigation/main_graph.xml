@@ -27,12 +27,12 @@
     </fragment>
     <fragment
         android:id="@+id/cocktailDetailFragment"
-        android:name="com.alexis.morison.tragosapp.ui.CocktailDetailFragment"
+        android:name="com.alexis.morison.tragosapp.ui.cocktaildetail.CocktailDetailFragment"
         android:label="Details"
         tools:layout="@layout/fragment_cocktail_detail" />
     <fragment
         android:id="@+id/favouritesFragment"
-        android:name="com.alexis.morison.tragosapp.ui.FavouritesFragment"
+        android:name="com.alexis.morison.tragosapp.ui.favourites.FavouritesFragment"
         android:label="Favourites"
         tools:layout="@layout/fragment_favourites">
         <action

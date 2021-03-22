@@ -10,15 +10,16 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.alexis.morison.tragosapp.AppDatabase
+import com.alexis.morison.tragosapp.data.local.AppDatabase
 import com.alexis.morison.tragosapp.R
 import com.alexis.morison.tragosapp.data.DataSourceImplement
-import com.alexis.morison.tragosapp.data.model.Drink
+import com.alexis.morison.tragosapp.data.model.Cocktail
 import com.alexis.morison.tragosapp.databinding.FragmentMainBinding
 import com.alexis.morison.tragosapp.domain.RepoImplement
-import com.alexis.morison.tragosapp.ui.viewmodel.MainViewModel
-import com.alexis.morison.tragosapp.ui.viewmodel.ViewModelFactory
-import com.alexis.morison.tragosapp.vo.Resource
+import com.alexis.morison.tragosapp.ui.cocktaildetail.CocktailDetailFragment
+import com.alexis.morison.tragosapp.presentation.MainViewModel
+import com.alexis.morison.tragosapp.presentation.ViewModelFactory
+import com.alexis.morison.tragosapp.base.Resource
 
 class MainFragment : Fragment(R.layout.fragment_main), MainAdapter.OnDrinkClickListener {
 
@@ -98,10 +99,10 @@ class MainFragment : Fragment(R.layout.fragment_main), MainAdapter.OnDrinkClickL
         binding.rvTragos.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
     }
 
-    override fun onDrinkClick(drink: Drink, position: Int) {
+    override fun onDrinkClick(cocktail: Cocktail, position: Int) {
 
         val bundle = Bundle()
-        bundle.putParcelable(CocktailDetailFragment.DRINK_PARAM, drink)
+        bundle.putParcelable(CocktailDetailFragment.DRINK_PARAM, cocktail)
 
         findNavController().navigate(R.id.action_mainFragment_to_cocktailDetailFragment, bundle)
     }
