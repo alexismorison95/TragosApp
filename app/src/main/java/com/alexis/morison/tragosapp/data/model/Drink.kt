@@ -1,11 +1,16 @@
 package com.alexis.morison.tragosapp.data.model
 
 import android.os.Parcelable
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Drink(
+    @SerializedName("idDrink")
+    val id: String = "",
     @SerializedName("strDrink")
     val name: String = "",
     @SerializedName("strDrinkThumb")
@@ -32,4 +37,30 @@ data class Drink(
 data class DrinkList(
     @SerializedName("drinks")
     val drinkList: List<Drink>
+)
+
+@Entity
+data class DrinkEntity(
+    @PrimaryKey
+    val drinkId: String,
+    @ColumnInfo(name = "drinkName")
+    val name: String = "",
+    @ColumnInfo(name = "drinkThumb")
+    val image: String = "",
+    @ColumnInfo(name = "instructions")
+    val description: String = "",
+    @ColumnInfo(name = "isAlcoholic")
+    val hasAlcohol: String = "Non alcoholic",
+    @ColumnInfo(name = "ingredient1")
+    val ingredient1: String?,
+    @ColumnInfo(name = "ingredient2")
+    val ingredient2: String?,
+    @ColumnInfo(name = "ingredient3")
+    val ingredient3: String?,
+    @ColumnInfo(name = "ingredient4")
+    val ingredient4: String?,
+    @ColumnInfo(name = "ingredient5")
+    val ingredient5: String?,
+    @ColumnInfo(name = "ingredient6")
+    val ingredient6: String?,
 )

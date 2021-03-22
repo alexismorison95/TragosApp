@@ -6,13 +6,29 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.activityViewModels
+import com.alexis.morison.tragosapp.AppDatabase
 import com.alexis.morison.tragosapp.R
+import com.alexis.morison.tragosapp.data.DataSource
 import com.alexis.morison.tragosapp.data.model.Drink
+import com.alexis.morison.tragosapp.data.model.DrinkEntity
 import com.alexis.morison.tragosapp.databinding.FragmentCocktailDetailBinding
+import com.alexis.morison.tragosapp.domain.RepoImplement
+import com.alexis.morison.tragosapp.ui.viewmodel.MainViewModel
+import com.alexis.morison.tragosapp.ui.viewmodel.ViewModelFactory
 import com.google.android.material.chip.Chip
 import com.squareup.picasso.Picasso
 
 class CocktailDetailFragment : Fragment(R.layout.fragment_cocktail_detail) {
+
+    private val viewModel by activityViewModels<MainViewModel> {
+        ViewModelFactory(
+            RepoImplement(
+                DataSource(AppDatabase.getDatabase(requireActivity().applicationContext))
+            )
+        )
+    }
 
     private lateinit var cocktail: Drink
 
@@ -22,10 +38,9 @@ class CocktailDetailFragment : Fragment(R.layout.fragment_cocktail_detail) {
         super.onCreate(savedInstanceState)
 
         requireArguments().let {
+
             cocktail = it.getParcelable(DRINK_PARAM)!!
         }
-
-        Log.d("detail_tag", "onCreate: ${cocktail.toString()}")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,6 +57,25 @@ class CocktailDetailFragment : Fragment(R.layout.fragment_cocktail_detail) {
         binding.textAlcoholic.text = cocktail.hasAlcohol
 
         getIngredients()
+
+        binding.btnSaveCocktail.setOnClickListener {
+
+            viewModel.saveCocktail(DrinkEntity(
+                cocktail.id,
+                cocktail.name,
+                cocktail.image,
+                cocktail.description,
+                cocktail.hasAlcohol,
+                cocktail.ingredient1,
+                cocktail.ingredient2,
+                cocktail.ingredient3,
+                cocktail.ingredient4,
+                cocktail.ingredient5,
+                cocktail.ingredient6,
+            ))
+
+            Toast.makeText(requireContext(), "Add to favourites", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun getIngredients() {

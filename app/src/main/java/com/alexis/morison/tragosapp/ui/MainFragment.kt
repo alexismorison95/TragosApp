@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alexis.morison.tragosapp.AppDatabase
 import com.alexis.morison.tragosapp.R
 import com.alexis.morison.tragosapp.data.DataSource
 import com.alexis.morison.tragosapp.data.model.Drink
@@ -27,7 +29,13 @@ class MainFragment : Fragment(R.layout.fragment_main), MainAdapter.OnDrinkClickL
 
     private lateinit var binding: FragmentMainBinding
 
-    private val viewModel by viewModels<MainViewModel> { ViewModelFactory(RepoImplement(DataSource())) }
+    private val viewModel by activityViewModels<MainViewModel> {
+        ViewModelFactory(
+            RepoImplement(
+                DataSource(AppDatabase.getDatabase(requireActivity().applicationContext))
+            )
+        )
+    }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,6 +48,11 @@ class MainFragment : Fragment(R.layout.fragment_main), MainAdapter.OnDrinkClickL
         setSearchView()
 
         setObservers()
+
+        binding.btnFavourites.setOnClickListener {
+
+            findNavController().navigate(R.id.action_mainFragment_to_favouritesFragment)
+        }
     }
 
     private fun setObservers() {
